@@ -5,6 +5,8 @@ import wikipedia
 import webbrowser
 import os
 import smtplib
+import requests
+import json
 
 engine = pyttsx3.init('sapi5')  # sapi5 is used to take voices from windows API
 voices = engine.getProperty('voices')
@@ -60,6 +62,41 @@ def sendEmail(to, content):
     server.sendmail('youremail@gmail.com', to, content)
     server.close()
 
+
+
+'''def get_weather(city):
+    api_key = "fc60b8da32ac4c7e95f144134241601"
+    base_url = "https://www.weatherapi.com/"
+    params = {'q': city, 'appid': api_key, 'units': 'metric'}  # You can change 'units' to 'imperial' for Fahrenheit
+
+    try:
+        response = requests.get(base_url, params=params)
+        data = response.json()
+
+        if response.status_code == 200:
+            weather_description = data['weather'][0]['description']
+            temperature = data['main']['temp']
+            humidity = data['main']['humidity']
+            wind_speed = data['wind']['speed']
+
+            weather_info = f"The weather in {city} is {weather_description}. " \
+                           f"The temperature is {temperature}°C, humidity is {humidity}%, " \
+                           f"and wind speed is {wind_speed} m/s."
+            print(weather_info)
+            speak(weather_info)
+        else:
+            print(f"Failed to get weather information. Status code: {response.status_code}")
+            speak("Sorry, I couldn't fetch the weather information.")
+
+    except Exception as e:
+        print("Error:", str(e))
+        speak("Sorry, there was an error fetching the weather information.") '''
+
+# ... (rest of your existing code)
+
+      
+
+
 if __name__ == "__main__":
     wishMe()
     while True:
@@ -77,13 +114,30 @@ if __name__ == "__main__":
 
         elif 'open youtube' in query:
             webbrowser.open("youtube.com")
+            
+        elif 'open spotify' in query:
+            webbrowser.open("https://open.spotify.com/")
+
+        elif 'open github' in query:
+            webbrowser.open("https://github.com/chetna7121")
+
+        elif 'open linkedin' in query:
+            webbrowser.open("https://www.linkedin.com/in/chetna-m-a26604231")
+
+        elif ' open geeksforgeeks' in query:
+            webbrowser.open("https://www.geeksforgeeks.org")
 
         elif 'open google' in query:
             webbrowser.open("google.com")
 
-        elif 'open stackoverflow' in query:
+        elif ' open stackoverflow' in query:
             webbrowser.open("stackoverflow.com")   
 
+        elif 'hey kitty browse the web' in query:
+          speak("Sure! What would you like to search for?")
+          search_query = takeCommand().lower()
+          search_url = "https://www.google.com/search?q=" + search_query.replace(' ', '+')
+          webbrowser.open(search_url)
 
         elif 'play music' in query:
             music_dir = 'D:\\Non Critical\\songs\\Favorite Songs2'
@@ -95,8 +149,8 @@ if __name__ == "__main__":
         elif 'the time' in query:
             strTime = datetime.datetime.now().strftime("%H:%M:%S")    
             speak(f"Sir, the time is {strTime}")
-
-
+        
+      
         elif 'email to chetna' in query:
             try:
                 speak("What should I say?")
@@ -106,4 +160,10 @@ if __name__ == "__main__":
                 speak("Email has been sent!")
             except Exception as e:
                 print(e)
-                speak("Sorry my friend. I am not able to send this email")    
+                speak("Sorry my friend. I am not able to send this email")  
+                
+        '''elif 'current weather' in query:
+            speak("Sure! Please tell me the city name.")
+            city_name = takeCommand().lower()
+            get_weather(city_name)
+'''          
